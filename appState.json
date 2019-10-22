@@ -1,0 +1,131 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "c7e0cb88-065a-4551-8fe4-d712cc0f949c": {
+        "id": "c7e0cb88-065a-4551-8fe4-d712cc0f949c",
+        "parent": null,
+        "name": "xsaz",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "b494c38c-63b5-4ced-a9c5-9bee6d8ada3b",
+          "8a2eaab0-a12a-4fcd-bc9e-48258889189c"
+        ],
+        "isRemovable": false,
+        "filePath": "xsaz"
+      },
+      "b494c38c-63b5-4ced-a9c5-9bee6d8ada3b": {
+        "id": "b494c38c-63b5-4ced-a9c5-9bee6d8ada3b",
+        "parent": "c7e0cb88-065a-4551-8fe4-d712cc0f949c",
+        "name": "function.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "xsaz/function.js",
+        "code": "let google = require('googleapis').google;\nlet _auth = require('./Authorizer');\nconst pubsub = google.pubsub('v1');\n\nexports.handler = function (request, response) {\n    pubsub.projects.topics.subscriptions.list({\n        topic: `projects/${process.env.GCP_PROJECT}/topics/test-pubsub`,\n        pageSize: 10\n    })\n        .then(response => {\n            console.log(response.data);  // successful response\n            /*\n            response.data = {\n                \"subscriptions\": [\n                    \"projects/<project>/subscriptions/<subscription-1>\",\n                    \"projects/<project>/subscriptions/<subscription-2>\",\n                    ...\n                ]\n            }\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n    response.send({ \"message\": \"Successfully executed\" });\n}",
+        "config": {
+          "runtime": "nodejs8",
+          "timeout": 60,
+          "memory": 128,
+          "triggerType": 0,
+          "handler": "handler"
+        },
+        "triggers": [
+          {
+            "resourceName": "http-trigger",
+            "config": {}
+          }
+        ]
+      },
+      "afb83aa4-f712-4fd4-91fd-d04cc8c7f514": {
+        "id": "afb83aa4-f712-4fd4-91fd-d04cc8c7f514",
+        "parent": null,
+        "name": "index.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "index.js",
+        "code": "// This file is used to register all your cloud functions in GCP.\n// DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\nexports.xsazfunction = require(\"./xsaz/function.js\").handler;"
+      },
+      "59e09d5b-1a96-4c93-b3b0-534495e056d2": {
+        "id": "59e09d5b-1a96-4c93-b3b0-534495e056d2",
+        "parent": null,
+        "name": "main.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "main.py",
+        "code": "# This file is used to register all your cloud functions in GCP.\n# DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\n"
+      },
+      "8a2eaab0-a12a-4fcd-bc9e-48258889189c": {
+        "id": "8a2eaab0-a12a-4fcd-bc9e-48258889189c",
+        "parent": "c7e0cb88-065a-4551-8fe4-d712cc0f949c",
+        "name": "Authorizer.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "xsaz/Authorizer.js",
+        "code": "const google = require(\"googleapis\").google;\n\ngoogle.options({auth: new google.auth.Compute()});"
+      }
+    },
+    "rootNode": "c7e0cb88-065a-4551-8fe4-d712cc0f949c",
+    "openFiles": [
+      "b494c38c-63b5-4ced-a9c5-9bee6d8ada3b"
+    ],
+    "currentFileId": "b494c38c-63b5-4ced-a9c5-9bee6d8ada3b",
+    "resources": {
+      "http-trigger": {
+        "name": "http-trigger",
+        "type": "http-trigger",
+        "config": {}
+      },
+      "pubsubtestPubsub": {
+        "name": "pubsubtestPubsub",
+        "type": "pubsub",
+        "config": {
+          "mode": 0,
+          "topic": {
+            "name": "test-pubsub",
+            "subscriptions": []
+          }
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": null
+    },
+    "envVariables": [],
+    "packageJSON": {
+      "dependencies": {
+        "googleapis": {
+          "name": "googleapis",
+          "language": "javascript",
+          "version": "29.0.0",
+          "dev": false,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "xsaz",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east1",
+    "platform": "GCP",
+    "platformRegions": {},
+    "lastSave": 1571733573215
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "xsaz",
+      "url": "https://github.com/Indunil1992/xsaz"
+    }
+  }
+}
